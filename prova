@@ -1,0 +1,84 @@
+SELECT user_id, LOWER(title) AS title_lower
+FROM favorite
+ORDER BY user_id, title_lower
+LIMIT 5;
+
+SELECT t.name, f.loudness
+FROM tracks AS t
+JOIN features AS f ON t.id = f.song_id
+ORDER BY f.loudness, t.name
+LIMIT 10;
+
+SELECT id, style
+FROM wine
+WHERE price IS NOT NULL
+ORDER BY id;
+
+SELECT a.name, 
+COUNT(*) as count
+FROM tracks AS t
+INNER JOIN artists AS a
+ON t.artist_id = a.id
+GROUP BY a.name
+ORDER BY a.name
+LIMIT 10;
+
+SELECT type, COUNT(*) AS count
+FROM wine
+WHERE price IS NOT NULL
+GROUP BY type
+ORDER BY type;
+
+SELECT T.artist_id, COUNT(*) AS dance_hits
+FROM tracks AS T
+INNER JOIN features AS F
+ON T.id = F.song_id
+WHERE F.dance_level > 75
+GROUP BY T.artist_id
+ORDER BY dance_hits DESC, T.artist_id
+LIMIT 10;
+
+SELECT DISTINCT name
+FROM artists
+WHERE name LIKE 'A%' OR name LIKE 'E%' OR name LIKE 'I%' OR name LIKE 'O%' OR name LIKE 'U%'
+ORDER BY name
+LIMIT 7;
+
+SELECT tracks.name AS song, artists.name AS artist, features.dance_level
+FROM tracks
+INNER JOIN artists ON tracks.artist_id = artists.id
+INNER JOIN features ON tracks.id = features.song_id
+ORDER BY artists.name, song
+LIMIT 10;
+
+SELECT order_id, quantity,
+       LAG(quantity, 1) OVER (ORDER BY order_id) AS pre_quantity
+FROM orders
+ORDER BY order_id;
+
+SELECT name, popularity
+FROM tracks
+WHERE popularity = 'E'
+LIMIT 10;
+
+SELECT item, energy
+FROM food
+ORDER BY item
+LIMIT 3;
+
+SELECT AVG(popularity) AS avg_popularity
+FROM artists
+WHERE followers > 500000;
+
+SELECT type, ROUND(AVG(rating), 2) AS round_avg
+FROM wine
+GROUP BY type
+ORDER BY type;
+
+SELECT COUNT(*) AS count
+FROM wine
+WHERE price IS NULL;
+
+SELECT CONCAT(first_name, ' ', last_name) AS full_name
+FROM directors
+ORDER BY full_name;
